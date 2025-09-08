@@ -13,6 +13,7 @@
  *
  *****************************************************************************/
 #include <drv_types.h>
+#ifdef CONFIG_PLATFORM_ROCKCHIP
 #include <linux/rfkill-wlan.h>
 extern int get_wifi_chip_type(void);
 extern int rockchip_wifi_power(int on);
@@ -52,3 +53,4 @@ void platform_wifi_power_off(void)
 	rockchip_wifi_power(0);
 
 }
+#endif

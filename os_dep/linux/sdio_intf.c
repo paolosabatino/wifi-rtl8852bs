@@ -1018,12 +1018,14 @@ static int __init rtw_drv_entry(void)
 
 	rtw_android_wifictrl_func_add();
 
+#ifdef CONFIG_PLATFORM_ROCKCHIP
 	ret = platform_wifi_power_on();
 	if (ret) {
 		RTW_INFO("%s: power on failed!!(%d)\n", __FUNCTION__, ret);
 		ret = -1;
 		goto exit;
 	}
+#endif
 
 	sdio_drvpriv.drv_registered = _TRUE;
 	rtw_suspend_lock_init();
@@ -1047,7 +1049,9 @@ static int __init rtw_drv_entry(void)
 	goto exit;
 
 poweroff:
+#ifdef CONFIG_PLATFORM_ROCKCHIP
 	platform_wifi_power_off();
+#endif
 
 exit:
 	RTW_PRINT("module init ret=%d\n", ret);
@@ -1064,7 +1068,9 @@ static void __exit rtw_drv_halt(void)
 
 	rtw_android_wifictrl_func_del();
 
+#ifdef CONFIG_PLATFORM_ROCKCHIP
 	platform_wifi_power_off();
+#endif
 
 	rtw_suspend_lock_uninit();
 	rtw_drv_proc_deinit();

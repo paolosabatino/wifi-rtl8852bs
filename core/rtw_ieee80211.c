@@ -2125,7 +2125,9 @@ void rtw_macaddr_cfg(u8 *out, const u8 *hw_mac_addr)
 	}
 
 err_chk:
+#ifdef CONFIG_PLATFORM_ROCKCHIP
 	platform_wifi_mac_addr(mac);
+#endif
 
 	if (rtw_check_invalid_mac_address(mac, _TRUE) == _TRUE) {
 #if DEFAULT_RANDOM_MACADDR
